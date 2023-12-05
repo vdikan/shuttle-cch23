@@ -1,12 +1,8 @@
-#![cfg_attr(debug_assertions, allow(dead_code, unused_imports, unused_variables))]
 use serde::{Deserialize, Serialize};
-use serde_json::Result;
 use serde_json::json;
 use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
-    routing::post,
-    Router,
 };
 use axum::extract::Json;
 
@@ -87,7 +83,7 @@ fn analyze_contest(v: &[ReindeerExtended]) -> Option<serde_json::Value> {
     ) {
         Some(json!({
             "fastest": format!("Speeding past the finish line with a strength of {} is {}",
-                                 fastest.strength, fastest.name),
+                               fastest.strength, fastest.name),
             "tallest": format!("{} is standing tall with his {} cm wide antlers",
                                tallest.name, tallest.antler_width),
             "magician": format!("{} could blast you away with a snow magic power of {}",
