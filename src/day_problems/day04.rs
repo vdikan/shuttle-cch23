@@ -96,9 +96,12 @@ fn analyze_contest(v: &[ReindeerExtended]) -> Option<serde_json::Value> {
     }
 }
 
-pub async fn day_04_contest(Json(payload): Json<Vec<ReindeerExtended>>) -> Json<serde_json::Value> {
-    let contest_result = analyze_contest(&payload).unwrap();
-    axum::Json(contest_result)
+pub async fn day_04_contest(Json(payload): Json<Vec<ReindeerExtended>>) -> Response {
+    let contest_result = analyze_contest(&payload);
+    match contest_result {
+        Some(json_response) => axum::Json(json_response).into_response(),
+        None => StatusCode::BAD_REQUEST.into_response(),
+    }
 }
 
 #[cfg(test)]
