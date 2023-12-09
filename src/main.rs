@@ -11,6 +11,7 @@ async fn main() -> shuttle_axum::ShuttleAxum {
         .route("/4/strength", post(day_problems::day04::day_04_strength))
         .route("/4/contest", post(day_problems::day04::day_04_contest))
         .route("/6", post(day_problems::day06::day06))
+        .route("/7/decode", get(day_problems::day07::day07_decode))
         .route("/8/weight/:index", get(day_problems::day08::day08_weight))
         .route("/8/drop/:index", get(day_problems::day08::day08_momentum));
 
