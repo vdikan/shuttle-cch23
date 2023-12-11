@@ -1,4 +1,5 @@
 use axum::{routing::get, routing::post, Router};
+use tower_http::services::ServeDir;
 
 mod day_problems;
 
@@ -13,7 +14,8 @@ async fn main() -> shuttle_axum::ShuttleAxum {
         .route("/6", post(day_problems::day06::day06))
         .route("/7/decode", get(day_problems::day07::day07_decode))
         .route("/8/weight/:index", get(day_problems::day08::day08_weight))
-        .route("/8/drop/:index", get(day_problems::day08::day08_momentum));
+        .route("/8/drop/:index", get(day_problems::day08::day08_momentum))
+        .nest_service("/11/assets", ServeDir::new("assets"));
 
     Ok(router.into())
 }
